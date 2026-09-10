@@ -8,7 +8,7 @@ from django.contrib.auth.views import (
     PasswordChangeView,
 )
 
-from ..forms import (
+from users.forms.auth import (
     CustomUserCreationForm,
     CustomLoginForm,
     CustomPasswordChangeForm,

@@ -6,8 +6,8 @@ from django.views.generic import (
     UpdateView,
 )
 
-from ..forms import UserProfileForm
-from ..models import User
+from users.forms.auth import UserProfileForm
+from users.models.user import User
 from ..mixins import UserIsSelfMixin
 
 
