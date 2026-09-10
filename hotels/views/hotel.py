@@ -32,12 +32,12 @@ class HotelListView(ListView):
         )
 
         city = self.request.GET.get('city')
-        query = self.request.GET.get('q')
+        title = self.request.GET.get('title')
 
         if city:
             queryset = queryset.filter(city__iexact=city)
-        if query:
-            queryset = queryset.filter(title__icontains=query)
+        if title:
+            queryset = queryset.filter(title__icontains=title)
 
         return queryset.order_by('-created_at')
 
