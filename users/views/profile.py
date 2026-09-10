@@ -6,7 +6,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from users.forms.auth import UserProfileForm
+from users.forms.profile import UserProfileForm
 from users.models.user import User
 from ..mixins import UserIsSelfMixin
 
