@@ -1,3 +1,37 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+
+class User(AbstractUser):
+    """
+    Кастомна модель користувача.
+    Розширює стандартну модель AbstractUser додатковим
+    полем ролі та допоміжними властивостями.
+    """
+
+    ROLES_CHOICES = [
+        ('guest', 'Клієнт'),
+        ('owner', 'Власник готелю'),
+        ('admin', 'Адміністратор'),
+    ]
+
+    role = models.CharField(
+        verbose_name='Роль',
+        max_length=20,
+        choices=ROLES_CHOICES,
+        default='guest',
+    )
+
+    @property
+    def is_guest(self) -> bool:
+        return self.role == 'guest'
+
+    @property
+    def is_hotel_owner(self) -> bool:
+        return (self.role == 'owner' or
+                self.is_superuser)
+
+    @property
+    def is_admin_user(self) -> bool:
+        return (self.role == 'admin' or
+                self.is_superuser)
