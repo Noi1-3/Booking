@@ -1,6 +1,7 @@
 from datetime import date
 from django import forms
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from utils.mixins import BootstrapFormMixin
 from bookings.models.booking import Booking
@@ -42,13 +43,13 @@ class BookingForm(
             if check_in < today:
                 self.add_error(
                     'check_in_date',
-                    "Дата заїзду не може бути в минулому."
+                    _("Дата заїзду не може бути в минулому.")
                 )
 
             if check_out <= check_in:
                 self.add_error(
                     'check_out_date',
-                    "Дата виїзду повинна бути пізнішою за дату заїзду."
+                    _("Дата виїзду повинна бути пізнішою за дату заїзду.")
                 )
 
         return cleaned_data

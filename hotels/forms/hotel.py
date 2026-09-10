@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from utils.mixins import BootstrapFormMixin
 from ..models import Hotel
@@ -11,10 +12,10 @@ class HotelForm(
     """Форма створення та редагування готелю."""
 
     placeholders = {
-        'title': 'Наприклад: Grand Hotel',
-        'city': 'Наприклад: Київ',
-        'address': 'Вулиця, номер будинку',
-        'description': 'Опишіть особливості та переваги готелю...',
+        'title':       _('Наприклад: Grand Hotel'),
+        'city':        _('Наприклад: Київ'),
+        'address':     _('Вулиця, номер будинку'),
+        'description': _('Опишіть особливості та переваги готелю...'),
     }
 
     class Meta:

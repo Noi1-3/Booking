@@ -1,4 +1,4 @@
-from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from django.contrib.auth.forms import (
     UserCreationForm,
@@ -17,10 +17,10 @@ class CustomUserCreationForm(
     """Форма реєстрації нового користувача."""
 
     placeholders = {
-        'username': "Ім'я користувача",
-        'email': "Електронна пошта",
-        'password1': "Введіть пароль",
-        'password2': "Повторіть пароль",
+        'username':  _("Ім'я користувача"),
+        'email':     _("Електронна пошта"),
+        'password1': _("Введіть пароль"),
+        'password2': _("Повторіть пароль"),
     }
 
     class Meta(UserCreationForm.Meta):
@@ -39,9 +39,9 @@ class CustomPasswordChangeForm(
     """Форма зміни пароля користувача."""
 
     placeholders = {
-        'old_password': "Введіть старий пароль",
-        'new_password1': "Введіть новий пароль",
-        'new_password2': "Повторіть новий пароль",
+        'old_password':  _("Введіть старий пароль"),
+        'new_password1': _("Введіть новий пароль"),
+        'new_password2': _("Повторіть новий пароль"),
     }
 
 
@@ -52,6 +52,6 @@ class CustomLoginForm(
     """Форма авторизації користувача."""
 
     placeholders = {
-        'username': "Логін",
-        'password': "Пароль",
+        'username': _("Логін"),
+        'password': _("Пароль"),
     }

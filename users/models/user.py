@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 
@@ -10,13 +11,13 @@ class User(AbstractUser):
     """
 
     ROLES_CHOICES = [
-        ('guest', 'Клієнт'),
-        ('owner', 'Власник готелю'),
-        ('admin', 'Адміністратор'),
+        ('guest', _('Клієнт')),
+        ('owner', _('Власник готелю')),
+        ('admin', _('Адміністратор')),
     ]
 
     role = models.CharField(
-        verbose_name='Роль',
+        verbose_name=_('Роль'),
         max_length=20,
         choices=ROLES_CHOICES,
         default='guest',
