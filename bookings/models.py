@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
-from ..hotels.models import Room
+from hotels.models import Room
 
 
 class Booking(models.Model):
@@ -13,7 +13,7 @@ class Booking(models.Model):
     """
 
     user = models.ForeignKey(
-        to=User,
+        to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='bookings',
         verbose_name="Користувач",
