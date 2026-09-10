@@ -11,9 +11,9 @@ from django.views.generic import (
 )
 
 from hotels.models import Room
-from ..forms import BookingForm
-from ..models import Booking
-from ..services import create_booking
+from bookings.forms.booking import BookingForm
+from bookings.models.booking import Booking
+from bookings.services.booking import create_booking
 from ..mixins import BookingAccessRequiredMixin
 
 

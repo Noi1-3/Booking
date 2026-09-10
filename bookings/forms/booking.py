@@ -3,7 +3,7 @@ from django import forms
 from django.utils import timezone
 
 from utils.mixins import BootstrapFormMixin
-from .models import Booking
+from bookings.models.booking import Booking
 
 
 class BookingForm(

@@ -1,8 +1,8 @@
 from datetime import date
 from django.core.exceptions import ValidationError
 
-from users.models import User
-from .models import Booking, Room
+from users.models.user import User
+from bookings.models.booking import Booking, Room
 
 
 def create_booking(
