@@ -13,8 +13,8 @@ from .hotel import Hotel
 class Room(models.Model):
     """
     Модель кімнати в готелі.
-    Зберігає номер кімнати, поточну вартість
-    за добу та прапорець доступності.
+    Зберігає номер кімнати, місткість, поточну
+    вартість за добу та прапорець доступності.
     """
     
     hotel = models.ForeignKey(
@@ -27,6 +27,23 @@ class Room(models.Model):
     room_number = models.CharField(
         verbose_name=_('Номер кімнати'),
         max_length=50,
+    )
+
+    capacity = models.PositiveIntegerField(
+        verbose_name=_('Місткість'),
+        default=2,
+        validators=[
+            MinValueValidator(
+                1,
+                message=_('Місткість має бути щонайменше '
+                          '%(limit_value)s особа.')
+            ),
+            MaxValueValidator(
+                20,
+                message=_('Місткість не може перевищувати '
+                          '%(limit_value)s осіб.')
+            ),
+        ],
     )
 
     price_per_night = models.DecimalField(

@@ -10,16 +10,18 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = (
         'room_number',
         'hotel',
+        'capacity',
         'price_per_night',
-        'is_available'
+        'is_available',
     )
 
     list_filter = (
         'is_available',
-        'hotel__city'
+        'capacity',
+        'hotel__city',
     )
 
     search_fields = (
         'room_number',
-        'hotel__title'
+        'hotel__title',
     )
