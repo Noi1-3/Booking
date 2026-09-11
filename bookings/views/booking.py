@@ -3,6 +3,8 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.utils.translation import gettext as _
 
 from django.views.generic import (
     CreateView,
@@ -43,8 +45,24 @@ class BookingCreateView(
                 check_in=check_in,
                 check_out=check_out,
             )
+
+            messages.success(
+                self.request,
+                _("Кімнату №%(room_number)s у готелі "
+                  "'%(hotel_title)s' успішно заброньовано!") %
+                {
+                    'room_number': self.room.room_number,
+                    'hotel_title': self.room.hotel.title,
+                }
+            )
+
         except ValidationError as e:
             form.add_error(None, e.message)
+            messages.error(
+                self.request,
+                _("Не вдалося оформити бронювання. "
+                  "Перевірте вказані дати.")
+            )
             return self.form_invalid(form)
 
         return HttpResponseRedirect(self.get_success_url())
@@ -119,3 +137,11 @@ class BookingCancelView(
     model = Booking
     template_name = 'bookings/booking_confirm_cancel.html'
     success_url = reverse_lazy('user_booking_list')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            _("Бронювання №%(pk)s успішно скасовано.") %
+            {'pk': self.object.pk}
+        )
+        return super().form_valid(form)

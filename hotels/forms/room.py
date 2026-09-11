@@ -13,6 +13,7 @@ class RoomForm(
 
     placeholders = {
         'room_number':     _('Наприклад: 101 або Люкс-2'),
+        'capacity':        _('Наприклад: 2'),
         'price_per_night': _('Наприклад: 1500.00'),
     }
 
@@ -20,6 +21,7 @@ class RoomForm(
         model = Room
         fields = (
             'room_number',
+            'capacity',
             'price_per_night',
-            'is_available'
+            'is_available',
         )
