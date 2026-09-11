@@ -1,6 +1,5 @@
 from .booking import (
     BookingCreateView,
-    BookingDetailView,
     UserBookingListView,
     HotelOwnerBookingListView,
     BookingCancelView,
@@ -8,7 +7,6 @@ from .booking import (
 
 __all__ = [
     'BookingCreateView',
-    'BookingDetailView',
     'UserBookingListView',
     'HotelOwnerBookingListView',
     'BookingCancelView',

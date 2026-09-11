@@ -79,17 +79,6 @@ class BookingCreateView(
         )
 
 
-class BookingDetailView(
-    BookingAccessRequiredMixin,
-    DetailView
-):
-    """Детальний перегляд конкретного бронювання."""
-
-    model = Booking
-    template_name = 'bookings/booking_detail.html'
-    context_object_name = 'booking'
-
-
 class UserBookingListView(
     LoginRequiredMixin,
     ListView
