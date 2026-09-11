@@ -73,10 +73,7 @@ class BookingCreateView(
         return context
 
     def get_success_url(self):
-        return reverse_lazy(
-            'booking_detail',
-            kwargs={'pk': self.object.pk}
-        )
+        return reverse_lazy('user_booking_list')
 
 
 class UserBookingListView(
