@@ -1,3 +1,4 @@
+from django.db.models import Min, Q, F
 from django.urls import reverse_lazy
 
 from django.views.generic import (
@@ -18,7 +19,10 @@ from ..mixins.hotel import (
 
 
 class HotelListView(ListView):
-    """Отримання всіх готелів з пошуком та фільтрацією."""
+    """
+    Отримання всіх готелів з пошуком, фільтрацією,
+    мінімальною ціною та сортуванням.
+    """
 
     model = Hotel
     template_name = 'hotels/hotel_list.html'
@@ -28,7 +32,13 @@ class HotelListView(ListView):
     def get_queryset(self):
         queryset = (
             super().get_queryset()
-                   .select_related('owner')
+            .select_related('owner')
+            .annotate(
+                min_price=Min(
+                    'rooms__price_per_night',
+                    filter=Q(rooms__is_available=True)
+                )
+            )
         )
 
         city = self.request.GET.get('city')
@@ -39,7 +49,18 @@ class HotelListView(ListView):
         if title:
             queryset = queryset.filter(title__icontains=title)
 
-        return queryset.order_by('-created_at')
+        sort = self.request.GET.get('sort')
+
+        if sort == 'price_asc':
+            queryset = queryset.order_by(F('min_price').asc(nulls_last=True))
+        elif sort == 'price_desc':
+            queryset = queryset.order_by(F('min_price').desc(nulls_last=True))
+        elif sort == 'date_asc':
+            queryset = queryset.order_by('created_at')
+        else:
+            queryset = queryset.order_by('-created_at')
+
+        return queryset
 
 
 class HotelDetailView(DetailView):
