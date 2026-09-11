@@ -1,6 +1,8 @@
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.contrib import messages
+from django.utils.translation import gettext as _
 
 from django.contrib.auth.views import (
     LoginView,
@@ -9,9 +11,9 @@ from django.contrib.auth.views import (
 )
 
 from users.forms.auth import (
-    CustomUserCreationForm,
     CustomLoginForm,
     CustomPasswordChangeForm,
+    CustomUserCreationForm,
 )
 
 from ..mixins import AnonymousRequiredMixin
@@ -30,6 +32,13 @@ class RegisterView(
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)
+
+        messages.success(
+            self.request,
+            _("Вітаємо, %(username)s! "
+              "Ваш акаунт успішно створено.") %
+            {'username': self.object.username}
+        )
         return response
 
 
@@ -38,17 +47,42 @@ class UserLoginView(
     LoginView
 ):
     """Авторизація користувача."""
+
     form_class = CustomLoginForm
     template_name = 'users/login.html'
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            _("Ласкаво просимо назад, %(username)s!") %
+            {'username': form.get_user().username}
+        )
+        return super().form_valid(form)
 
 
 class UserLogoutView(LogoutView):
     """Вихід із системи."""
+
     next_page = reverse_lazy('login')
+
+    def post(self, request, *args, **kwargs):
+        messages.info(
+            request,
+            _("Ви успішно вийшли з системи.")
+        )
+        return super().post(request, *args, **kwargs)
 
 
 class UserPasswordChangeView(PasswordChangeView):
     """Зміна пароля поточного користувача."""
+
     form_class = CustomPasswordChangeForm
     template_name = 'users/password_change.html'
     success_url = reverse_lazy('profile')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            _("Ваш пароль успішно змінено.")
+        )
+        return super().form_valid(form)

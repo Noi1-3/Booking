@@ -3,6 +3,8 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin,
 )
 
+from django.contrib import messages
+from django.utils.translation import gettext_lazy as _l
 from django.views.generic.detail import SingleObjectMixin
 
 
@@ -27,3 +29,11 @@ class BookingAccessRequiredMixin(
         is_hotel_owner = booking.room.hotel.owner == user
 
         return is_client or is_hotel_owner or user.is_superuser
+
+    def handle_no_permission(self):
+        messages.error(
+            self.request,
+            _l("У вас немає доступу до детальної інформації "
+               "або скасування цього бронювання.")
+        )
+        return super().handle_no_permission()

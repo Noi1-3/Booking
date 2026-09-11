@@ -1,12 +1,16 @@
-from django.db.models import Min, Q, F
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import F, Min, Q
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _l
 
 from django.views.generic import (
-    ListView,
-    DetailView,
     CreateView,
-    UpdateView,
     DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
 )
 
 from ..forms import HotelForm
@@ -77,6 +81,7 @@ class HotelDetailView(DetailView):
 
 
 class HotelCreateView(
+    SuccessMessageMixin,
     HotelCreateMixin,
     CreateView
 ):
@@ -87,8 +92,14 @@ class HotelCreateView(
     template_name = 'hotels/hotel_form.html'
     success_url = reverse_lazy('hotel_list')
 
+    success_message = _l(
+        "Готель '%(title)s' "
+        "успішно створено!"
+    )
+
 
 class HotelUpdateView(
+    SuccessMessageMixin,
     HotelOwnerRequiredMixin,
     UpdateView
 ):
@@ -97,6 +108,11 @@ class HotelUpdateView(
     model = Hotel
     form_class = HotelForm
     template_name = 'hotels/hotel_form.html'
+
+    success_message = _l(
+        "Інформацію про готель '%(title)s' "
+        "успішно оновлено."
+    )
 
     def get_success_url(self):
         return reverse_lazy(
@@ -114,3 +130,11 @@ class HotelDeleteView(
     model = Hotel
     template_name = 'hotels/hotel_confirm_delete.html'
     success_url = reverse_lazy('hotel_list')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            _("Готель '%(title)s' успішно видалено.") %
+            {'title': self.object.title}
+        )
+        return super().form_valid(form)

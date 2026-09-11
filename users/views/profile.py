@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.translation import gettext_lazy as _l
 from django.urls import reverse_lazy
 
 from django.views.generic import (
@@ -38,6 +39,7 @@ class UserProfileUpdateView(
     form_class = UserProfileForm
     template_name = 'users/profile_update.html'
     success_url = reverse_lazy('profile')
+    success_message = _l("Дані вашого профілю успішно оновлено.")
 
     def get_object(self, queryset=None):
         if 'pk' not in self.kwargs:

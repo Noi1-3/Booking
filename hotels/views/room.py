@@ -1,9 +1,13 @@
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _l
 
 from django.views.generic import (
     CreateView,
-    UpdateView,
     DeleteView,
+    UpdateView,
 )
 
 from ..forms import RoomForm
@@ -16,6 +20,7 @@ from ..mixins.room import (
 
 
 class RoomCreateView(
+    SuccessMessageMixin,
     RoomCreateMixin,
     CreateView
 ):
@@ -25,6 +30,11 @@ class RoomCreateView(
     form_class = RoomForm
     template_name = 'hotels/room_form.html'
 
+    success_message = _l(
+        "Кімнату №%(room_number)s "
+        "успішно додано."
+    )
+
     def get_success_url(self):
         return reverse_lazy(
             'hotel_detail',
@@ -33,6 +43,7 @@ class RoomCreateView(
 
 
 class RoomUpdateView(
+    SuccessMessageMixin,
     RoomOwnerRequiredMixin,
     UpdateView
 ):
@@ -41,6 +52,11 @@ class RoomUpdateView(
     model = Room
     form_class = RoomForm
     template_name = 'hotels/room_form.html'
+
+    success_message = _l(
+        "Інформацію про кімнату №%(room_number)s "
+        "успішно оновлено."
+    )
 
     def get_success_url(self):
         return reverse_lazy(
@@ -57,6 +73,14 @@ class RoomDeleteView(
 
     model = Room
     template_name = 'hotels/room_confirm_delete.html'
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            _("Кімнату №%(room_number)s успішно видалено.") %
+            {'room_number': self.object.room_number}
+        )
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy(
