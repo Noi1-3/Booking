@@ -84,38 +84,37 @@ http://127.0.0.1:8000/
 
 ### 1. Загальні шаблони
 
-| Файл шаблону | Призначення сторінки | Форма (Form) |
-| :--- | :--- | :--- |
-| `base.html` | Базовий каркас сторінок, підключення Bootstrap 5, метатегів, сповіщень та навігації | Відсутня |
-| `includes/navbar.html` | Навігаційне меню з динамічними елементами залежно від ролі | POST-форма виходу |
+| Файл шаблону           | Призначення сторінки                                                                | Форма (Form)      |
+|:-----------------------|:------------------------------------------------------------------------------------|:------------------|
+| `base.html`            | Базовий каркас сторінок, підключення Bootstrap 5, метатегів, сповіщень та навігації | Відсутня          |
+| `includes/navbar.html` | Навігаційне меню з динамічними елементами залежно від ролі                          | POST-форма виходу |
 
 ### 2. Застосунок `users` (Авторизація та профілі)
 
-| Файл шаблону | Призначення сторінки | Представлення (View) | Форма (Form) |
-| :--- | :--- | :--- | :--- |
-| `users/register.html` | Реєстрація нового користувача | `RegisterView` | `CustomUserCreationForm` |
-| `users/login.html` | Авторизація користувача | `UserLoginView` | `CustomLoginForm` |
-| `users/profile_detail.html` | Перегляд профілю користувача | `UserProfileDetailView` | Відсутня |
-| `users/profile_update.html` | Редагування персональних даних | `UserProfileUpdateView` | `UserProfileForm` |
-| `users/password_change.html` | Зміна пароля користувача | `UserPasswordChangeView` | `CustomPasswordChangeForm` |
+| Файл шаблону                 | Призначення сторінки           | Представлення (View)     | Форма (Form)               |
+|:-----------------------------|:-------------------------------|:-------------------------|:---------------------------|
+| `users/register.html`        | Реєстрація нового користувача  | `RegisterView`           | `CustomUserCreationForm`   |
+| `users/login.html`           | Авторизація користувача        | `UserLoginView`          | `CustomLoginForm`          |
+| `users/profile_detail.html`  | Перегляд профілю користувача   | `UserProfileDetailView`  | Відсутня                   |
+| `users/profile_update.html`  | Редагування персональних даних | `UserProfileUpdateView`  | `UserProfileForm`          |
+| `users/password_change.html` | Зміна пароля користувача       | `UserPasswordChangeView` | `CustomPasswordChangeForm` |
 
 ### 3. Застосунок `hotels` (Готелі та номери)
 
-| Файл шаблону | Призначення сторінки | Представлення (View) | Форма (Form) |
-| :--- | :--- | :--- | :--- |
-| `hotels/hotel_list.html` | Каталог готелів із фільтрацією та пагінацією | `HotelListView` | GET-форма пошуку (`title`, `city`) |
-| `hotels/hotel_detail.html` | Детальна сторінка готелю та перелік номерів | `HotelDetailView` | Відсутня |
-| `hotels/hotel_form.html` | Створення та редагування готелю | `HotelCreateView`, `HotelUpdateView` | `HotelForm` |
-| `hotels/hotel_confirm_delete.html` | Підтвердження видалення готелю | `HotelDeleteView` | POST-форма підтвердження |
-| `hotels/room_form.html` | Додавання та редагування кімнати | `RoomCreateView`, `RoomUpdateView` | `RoomForm` |
-| `hotels/room_confirm_delete.html` | Підтвердження видалення кімнати | `RoomDeleteView` | POST-форма підтвердження |
+| Файл шаблону                       | Призначення сторінки                         | Представлення (View)                 | Форма (Form)                       |
+|:-----------------------------------|:---------------------------------------------|:-------------------------------------|:-----------------------------------|
+| `hotels/hotel_list.html`           | Каталог готелів із фільтрацією та пагінацією | `HotelListView`                      | GET-форма пошуку (`title`, `city`) |
+| `hotels/hotel_detail.html`         | Детальна сторінка готелю та перелік номерів  | `HotelDetailView`                    | Відсутня                           |
+| `hotels/hotel_form.html`           | Створення та редагування готелю              | `HotelCreateView`, `HotelUpdateView` | `HotelForm`                        |
+| `hotels/hotel_confirm_delete.html` | Підтвердження видалення готелю               | `HotelDeleteView`                    | POST-форма підтвердження           |
+| `hotels/room_form.html`            | Додавання та редагування кімнати             | `RoomCreateView`, `RoomUpdateView`   | `RoomForm`                         |
+| `hotels/room_confirm_delete.html`  | Підтвердження видалення кімнати              | `RoomDeleteView`                     | POST-форма підтвердження           |
 
 ### 4. Застосунок `bookings` (Бронювання)
 
-| Файл шаблону | Призначення сторінки | Представлення (View) | Форма (Form) |
-| :--- | :--- | :--- | :--- |
-| `bookings/booking_form.html` | Вибір дат та оформлення бронювання | `BookingCreateView` | `BookingForm` |
-| `bookings/booking_detail.html` | Детальна інформація про бронювання | `BookingDetailView` | Відсутня |
-| `bookings/user_booking_list.html` | Список усіх бронювань поточного клієнта | `UserBookingListView` | Відсутня |
-| `bookings/owner_booking_list.html` | Список усіх бронювань у готелях власника | `HotelOwnerBookingListView` | Відсутня |
-| `bookings/booking_confirm_cancel.html` | Підтвердження скасування бронювання | `BookingCancelView` | POST-форма підтвердження |
+| Файл шаблону                           | Призначення сторінки                     | Представлення (View)        | Форма (Form)             |
+|:---------------------------------------|:-----------------------------------------|:----------------------------|:-------------------------|
+| `bookings/booking_form.html`           | Вибір дат та оформлення бронювання       | `BookingCreateView`         | `BookingForm`            |
+| `bookings/user_booking_list.html`      | Список усіх бронювань поточного клієнта  | `UserBookingListView`       | Відсутня                 |
+| `bookings/owner_booking_list.html`     | Список усіх бронювань у готелях власника | `HotelOwnerBookingListView` | Відсутня                 |
+| `bookings/booking_confirm_cancel.html` | Підтвердження скасування бронювання      | `BookingCancelView`         | POST-форма підтвердження |
