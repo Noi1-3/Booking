@@ -5,9 +5,6 @@ from django.utils.translation import gettext_lazy as _
 BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'users.User'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-m+)5n04qaejl(7*&*a7d%fse@dpv212qa$!t&fqso3#757&vh$'
 
@@ -15,19 +12,6 @@ SECRET_KEY = 'django-insecure-m+)5n04qaejl(7*&*a7d%fse@dpv212qa$!t&fqso3#757&vh$
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-# LANGUAGE
-USE_I18N = True
-LANGUAGE_CODE = 'uk'
-
-LANGUAGES = [
-    ('uk', _('Ukrainian')),
-    ('en', _('English')),
-]
-
-LOCALE_PATHS = [
-    BASE_DIR / 'locale',
-]
 
 # Application definition
 
@@ -44,13 +28,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -109,14 +91,21 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk'
 
 TIME_ZONE = 'UTC'
 
+USE_TZ = True
 USE_I18N = True
 
-USE_TZ = True
+LANGUAGES = [
+    ('uk', _('Ukrainian')),
+    ('en', _('English')),
+]
 
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
