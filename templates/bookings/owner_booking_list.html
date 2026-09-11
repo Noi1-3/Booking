@@ -23,10 +23,10 @@
                 <tr>
                     <td>
                         <strong>{{ booking.room.hotel.title }}</strong><br>
-                        <span class="text-muted">{{ booking.room.name }}</span>
+                        <span class="text-muted">Номер {{ booking.room.room_number }}</span>
                     </td>
-                    <td>{{ booking.check_in }}</td>
-                    <td>{{ booking.check_out }}</td>
+                    <td>{{ booking.check_in_date }}</td>
+                    <td>{{ booking.check_out_date }}</td>
                     <td>{{ booking.price_per_night }} ₴</td>
                     <td>{{ booking.total_price }} ₴</td>
                     <td>
