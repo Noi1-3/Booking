@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Наші готелі{% endblock %}
+
+{% block content %}
+<h2 class="text-lilac mb-4 fw-bold">Знайди своє ідеальне місце</h2>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for hotel in object_list %}
+    <div class="col">
+        <div class="card card-lilac h-100 p-2">
+            <div class="card-body">
+                <h4 class="card-title" style="color: #4a1c82;">{{ hotel.name }}</h4>
+                <h6 class="card-subtitle mb-3" style="color: #8860a3;">{{ hotel.location }}</h6>
+                <p class="card-text">{{ hotel.description|truncatewords:15 }}</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                <span class="fs-5 fw-bold" style="color: #8c52ff;">{{ hotel.price }} ₴</span>
+                <a href="{% url 'hotel_detail' hotel.id %}" class="btn btn-lilac">Детальніше</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <h3 style="color: #a67cff;">Ой...</h3>
+        <p class="text-muted fs-5">Поки що тут немає готелів, але ми обов'язково щось додамо!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

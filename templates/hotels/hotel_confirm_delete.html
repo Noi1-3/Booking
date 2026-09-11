@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Підтвердження{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card card-lilac p-4 text-center">
+            <h2 class="text-danger mb-4">Ви впевнені?</h2>
+            <p class="fs-5">Ви дійсно хочете виконати цю дію щодо <strong>{{ object }}</strong>?</p>
+            <p class="text-muted">Цю дію неможливо скасувати.</p>
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger me-2">Так, підтверджую</button>
+                <a href="javascript:history.back()" class="btn btn-secondary">Ні, повернутися</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

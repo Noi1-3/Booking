@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Деталі бронювання{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card card-lilac p-4">
+            <h2 class="text-lilac mb-4">Бронювання #{{ booking.id }}</h2>
+
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item bg-transparent"><strong>Готель:</strong> {{ booking.room.hotel.name }}</li>
+                <li class="list-group-item bg-transparent"><strong>Номер:</strong> {{ booking.room.name }}</li>
+                <li class="list-group-item bg-transparent"><strong>Дата заїзду:</strong> {{ booking.check_in }}</li>
+                <li class="list-group-item bg-transparent"><strong>Дата виїзду:</strong> {{ booking.check_out }}</li>
+                <li class="list-group-item bg-transparent">
+                    <strong>Статус:</strong>
+                    <span class="badge" style="background-color: #a67cff;">{{ booking.status }}</span>
+                </li>
+            </ul>
+
+            <div class="d-flex justify-content-end">
+                <a href="javascript:history.back()" class="btn btn-outline-secondary me-2">Назад</a>
+                <a href="#" class="btn btn-danger">Скасувати бронювання</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

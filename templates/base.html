@@ -5,8 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Бронювання готелів{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f0fa !important;
+            color: #2d1b36;
+        }
+        .navbar-custom {
+            background-color: #8c52ff;
+            box-shadow: 0 4px 10px rgba(140, 82, 255, 0.2);
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #e0d4ff !important;
+        }
+        .btn-lilac {
+            background-color: #a67cff;
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            transition: background-color 0.2s;
+        }
+        .btn-lilac:hover {
+            background-color: #7e3ff2;
+            color: #ffffff;
+        }
+        .card-lilac {
+            background: #ffffff;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(140, 82, 255, 0.08);
+            transition: transform 0.2s ease-in-out;
+        }
+        .card-lilac:hover {
+            transform: translateY(-5px);
+        }
+        .text-lilac {
+            color: #6a2bba;
+        }
+    </style>
 </head>
-
 <body class="bg-light">
     {% include 'includes/navbar.html' %}
 

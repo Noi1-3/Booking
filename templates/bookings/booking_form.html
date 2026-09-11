@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Заповнення даних{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card card-lilac p-4">
+            <h2 class="text-lilac text-center mb-4">Введіть дані</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-lilac">Зберегти</button>
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary">Скасувати</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

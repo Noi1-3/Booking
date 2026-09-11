@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Редагування профілю{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card card-lilac p-5">
+            <h3 class="text-lilac text-center mb-4 fw-bold">Оновлення даних</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-lilac py-2 fs-5">Зберегти зміни</button>
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary py-2">Скасувати</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
