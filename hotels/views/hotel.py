@@ -74,6 +74,14 @@ class HotelDetailView(DetailView):
     template_name = 'hotels/hotel_detail.html'
     context_object_name = 'hotel'
 
+    def get_queryset(self):
+        return super().get_queryset().annotate(
+            min_price=Min(
+                'rooms__price_per_night',
+                filter=Q(rooms__is_available=True)
+            )
+        )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['rooms'] = self.object.rooms.all()
