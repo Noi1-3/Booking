@@ -13,7 +13,8 @@
                     <th>Готель / Номер</th>
                     <th>Заїзд</th>
                     <th>Виїзд</th>
-                    <th>Статус</th>
+                    <th>Ціна за ніч</th>
+                    <th>Всього</th>
                     <th>Дії</th>
                 </tr>
             </thead>
@@ -21,21 +22,20 @@
                 {% for booking in object_list %}
                 <tr>
                     <td>
-                        <strong>{{ booking.room.hotel.name }}</strong><br>
+                        <strong>{{ booking.room.hotel.title }}</strong><br>
                         <span class="text-muted">{{ booking.room.name }}</span>
                     </td>
                     <td>{{ booking.check_in }}</td>
                     <td>{{ booking.check_out }}</td>
+                    <td>{{ booking.price_per_night }} ₴</td>
+                    <td>{{ booking.total_price }} ₴</td>
                     <td>
-                        <span class="badge" style="background-color: #a67cff;">{{ booking.status }}</span>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-outline-secondary">Деталі</a>
+                        <a href="{% url 'booking_delete' booking.id %}" class="btn btn-sm btn-danger">Видалити</a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5" class="text-center py-4 text-muted">Поки що тут немає записів.</td>
+                    <td colspan="6" class="text-center py-4 text-muted">Поки що тут немає записів.</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -21,6 +21,14 @@
                             <strong>{{ user.username }}</strong>
                         </li>
                         <li class="list-group-item bg-transparent border-0 pb-2">
+                            <span class="text-muted fs-6 d-block">Ім'я</span>
+                            <strong>{{ user.first_name|default:"Не вказано" }}</strong>
+                        </li>
+                        <li class="list-group-item bg-transparent border-0 pb-2">
+                            <span class="text-muted fs-6 d-block">Прізвище</span>
+                            <strong>{{ user.last_name|default:"Не вказано" }}</strong>
+                        </li>
+                        <li class="list-group-item bg-transparent border-0 pb-2">
                             <span class="text-muted fs-6 d-block">Email</span>
                             <strong>{{ user.email|default:"Не вказано" }}</strong>
                         </li>
