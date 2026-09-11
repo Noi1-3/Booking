@@ -15,7 +15,13 @@
                 <p class="card-text">{{ hotel.description|truncatewords:15 }}</p>
             </div>
             <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
-                <span class="fs-5 fw-bold" style="color: #8c52ff;">Від {{ hotel.min_price }} ₴</span>
+                <span class="fs-5 fw-bold" style="color: #8c52ff;">
+                    {% if hotel.min_price %}
+                        Від {{ hotel.min_price }} ₴
+                    {% else %}
+                        Немає номерів
+                    {% endif %}
+                </span>
                 <a href="{% url 'hotel_detail' hotel.id %}" class="btn btn-lilac">Детальніше</a>
             </div>
         </div>

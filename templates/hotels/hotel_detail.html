@@ -9,7 +9,13 @@
     <p class="mt-3">{{ hotel.description }}</p>
 
     <div class="d-flex justify-content-between align-items-center mt-4">
-        <span class="fs-4 fw-bold" style="color: #8c52ff;">Від {{ hotel.min_price }} ₴ за ніч</span>
+        <span class="fs-4 fw-bold" style="color: #8c52ff;">
+            {% if hotel.min_price %}
+                Від {{ hotel.min_price }} ₴ за ніч
+            {% else %}
+                Номери відсутні
+            {% endif %}
+        </span>
 
         {% if user.is_hotel_owner %}
         <div>
@@ -31,7 +37,7 @@
     {% for room in hotel.rooms.all %}
     <div class="col">
         <div class="card card-lilac card-hover h-100 p-3 flex-column d-flex">
-            <h4 style="color: #4a1c82;">{{ room.name }}</h4>
+            <h4 style="color: #4a1c82;">Номер {{ room.room_number }}</h4>
             <p class="mb-1">Місткість: {{ room.capacity }} чол.</p>
             <p class="fw-bold mb-3" style="color: #8c52ff;">{{ room.price_per_night }} ₴ / ніч</p>
 
