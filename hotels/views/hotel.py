@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import F, Min, Q
+from django.db.models import Count, F, Min, Q
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy as _l
@@ -33,6 +33,17 @@ class HotelListView(ListView):
     context_object_name = 'hotels'
     paginate_by = 10
 
+    SORT_OPTIONS = {
+        'newest': ('-created_at', 'id'),
+        'oldest': ('created_at', 'id'),
+        'title_asc': ('title', 'id'),
+        'title_desc': ('-title', 'id'),
+        'city_asc': ('city', 'title', 'id'),
+        'price_asc': (F('min_price').asc(nulls_last=True), 'title', 'id'),
+        'price_desc': (F('min_price').desc(nulls_last=True), 'title', 'id'),
+        'availability_desc': ('-available_rooms', 'title', 'id'),
+    }
+
     def get_queryset(self):
         queryset = (
             super().get_queryset()
@@ -41,30 +52,44 @@ class HotelListView(ListView):
                 min_price=Min(
                     'rooms__price_per_night',
                     filter=Q(rooms__is_available=True)
-                )
+                ),
+                available_rooms=Count(
+                    'rooms',
+                    filter=Q(rooms__is_available=True),
+                    distinct=True,
+                ),
             )
         )
 
-        city = self.request.GET.get('city')
-        title = self.request.GET.get('title')
+        city = self.request.GET.get('city', '').strip()
+        title = self.request.GET.get('title', '').strip()
 
         if city:
             queryset = queryset.filter(city__iexact=city)
         if title:
             queryset = queryset.filter(title__icontains=title)
 
-        sort = self.request.GET.get('sort')
+        sort = self.request.GET.get('sort', 'newest')
+        ordering = self.SORT_OPTIONS.get(sort, self.SORT_OPTIONS['newest'])
+        return queryset.order_by(*ordering)
 
-        if sort == 'price_asc':
-            queryset = queryset.order_by(F('min_price').asc(nulls_last=True))
-        elif sort == 'price_desc':
-            queryset = queryset.order_by(F('min_price').desc(nulls_last=True))
-        elif sort == 'date_asc':
-            queryset = queryset.order_by('created_at')
-        else:
-            queryset = queryset.order_by('-created_at')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cities'] = (
+            Hotel.objects.exclude(city='')
+            .order_by('city')
+            .values_list('city', flat=True)
+            .distinct()
+        )
+        requested_sort = self.request.GET.get('sort', 'newest')
+        context['current_sort'] = (
+            requested_sort if requested_sort in self.SORT_OPTIONS else 'newest'
+        )
 
-        return queryset
+        query_params = self.request.GET.copy()
+        query_params.pop('page', None)
+        context['query_string'] = query_params.urlencode()
+        return context
 
 
 class HotelDetailView(DetailView):
